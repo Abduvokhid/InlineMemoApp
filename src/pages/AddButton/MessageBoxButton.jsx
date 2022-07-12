@@ -1,11 +1,11 @@
-function MessageBoxButton ({onChange}) {
+function MessageBoxButton ({onChange, input}) {
   return <>
     <div class="form_item">
-      <input onInput={onChange} type="text" required="required" name="name" id="name" placeholder="Text of the button"/>
+      <input onInput={onChange} type="text" required="required" name="name" id="name" placeholder={input.name}/>
     </div>
     <div class="form_item">
       <input onInput={onChange} type="text" required="required" maxlength="60" name="message" id="message"
-             placeholder="Message text (60 symbols)"/>
+             placeholder={input.message_box}/>
     </div>
   </>
 }

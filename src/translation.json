@@ -1,0 +1,34 @@
+{
+  "en": {
+    "hint": "Select the button type and fill necessary fields. All shown fields are required.",
+    "options": {
+      "none": "Select the button type",
+      "link": "Link",
+      "message_box": "Message box",
+      "share": "Share text",
+      "share_post": "Share this post"
+    },
+    "input": {
+      "name": "Text of the button",
+      "link": "URL link of the button",
+      "message_box": "Message text (60 symbols)",
+      "share": "Message text (1000 symbols)"
+    }
+  },
+  "ru": {
+    "hint": "Выберите тип кнопки и заполните нужные поля. Все поля обязательно должны быть заполнены.",
+    "options": {
+      "none": "Выберите тип кнопки",
+      "link": "Ссылка",
+      "message_box": "Сообщение в окне",
+      "share": "Поделиться текстом",
+      "share_post": "Поделиться этим постом"
+    },
+    "input": {
+      "name": "Текст кнопки",
+      "link": "Ссылка кнопки",
+      "message_box": "Текст сообщения (60 символов)",
+      "share": "Текст сообщения (1000 символов)"
+    }
+  }
+}

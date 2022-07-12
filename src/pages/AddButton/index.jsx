@@ -1,4 +1,5 @@
 import './style.css'
+import translation from '../../translation.json'
 import { createSignal, onMount } from 'solid-js'
 import LinkButton from './LinkButton'
 import MessageBoxButton from './MessageBoxButton'
@@ -6,7 +7,8 @@ import ShareButton from './ShareButton'
 import SharePostButton from './SharePostButton'
 import { useLocation } from 'solid-app-router'
 
-const WEBAPP_URL = 'https://bot.inline.abdu.one/buttons/add'
+// const BOT_DOMAIN = "https://bot.inline.abdu.one"
+const BOT_DOMAIN = "https://f97b-82-215-98-198.eu.ngrok.io"
 
 const BUTTON = {
   LOADING: {
@@ -36,6 +38,8 @@ function AddButton () {
   const location = useLocation()
   const [type, setType] = createSignal(undefined)
 
+  let texts = translation.en
+
   onMount(() => {
     setButtonActive(false)
     const root = document.documentElement
@@ -43,6 +47,9 @@ function AddButton () {
       root.setAttribute('data-theme', 'dark')
     }
     window.Telegram.WebApp.MainButton.onClick(submitForm)
+
+    const language = window.Telegram?.WebApp?.initDataUnsafe?.user?.language_code || 'en'
+    if (translation[language]) texts = translation[language]
   })
 
   function setButtonActive (isActive = true) {
@@ -84,7 +91,7 @@ function AddButton () {
 
     mainButton.showProgress()
     mainButton.setParams(BUTTON.LOADING)
-    const response = await fetch(WEBAPP_URL, {
+    const response = await fetch(`${BOT_DOMAIN}/buttons/add`, {
       method: 'post',
       headers: {
         'Accept': 'application/json',
@@ -104,16 +111,16 @@ function AddButton () {
   return <>
     <form class="form" id="form">
       <div class="form_item">
-        <p class="description hint">Select the button type and fill necessary fields. All shown fields are required.</p>
+        <p class="description hint">{texts.hint}</p>
       </div>
       <div class="form_item">
         <label class="select w-100" for="type">
           <select name="type" id="type" required="required" onChange={onTypeChange}>
-            <option value="" disabled="disabled" selected="selected">Select the button type</option>
-            <option value="link">Link</option>
-            <option value="message_box">Message box</option>
-            <option value="share">Share text</option>
-            <option value="share_post">Share this post</option>
+            <option value="" disabled="disabled" selected="selected">{texts.options.none}</option>
+            <option value="link">{texts.options.link}</option>
+            <option value="message_box">{texts.options.message_box}</option>
+            <option value="share">{texts.options.share}</option>
+            <option value="share_post">{texts.options.share_post}</option>
           </select>
           <svg>
             <use xlink:href="#select-arrow-down"></use>
@@ -125,10 +132,10 @@ function AddButton () {
           </symbol>
         </svg>
       </div>
-      {type() === 'link' && <LinkButton onChange={onChange}/>}
-      {type() === 'message_box' && <MessageBoxButton onChange={onChange}/>}
-      {type() === 'share' && <ShareButton onChange={onChange}/>}
-      {type() === 'share_post' && <SharePostButton onChange={onChange}/>}
+      {type() === 'link' && <LinkButton onChange={onChange} input={texts.input}/>}
+      {type() === 'message_box' && <MessageBoxButton onChange={onChange} input={texts.input}/>}
+      {type() === 'share' && <ShareButton onChange={onChange} input={texts.input}/>}
+      {type() === 'share_post' && <SharePostButton onChange={onChange} input={texts.input}/>}
     </form>
   </>
 }

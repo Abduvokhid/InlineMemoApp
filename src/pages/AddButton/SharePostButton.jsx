@@ -1,7 +1,7 @@
-function SharePostButton ({onChange}) {
+function SharePostButton ({ onChange, input }) {
   return <>
     <div class="form_item">
-      <input onInput={onChange} type="text" required="required" name="name" id="name" placeholder="Text of the button"/>
+      <input onInput={onChange} type="text" required="required" name="name" id="name" placeholder={input.name}/>
     </div>
   </>
 }
